@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	{% load custom_filters %}
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Центрированный текст</title>
+	<style>
+		body {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			margin: 0;
+			font-family: Arial, sans-serif;
+			background-color: #f0f0f0;
+		}
+
+		h1 {
+			text-align: center;
+			color: #333;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>{{ text }}</h1>
+	{% if user.is_authenticated %}
+	<p>Привет, {{ user.username|upper|truncatechars:25}}!</p>
+	{% else %}
+	<p>Пожалуйста, войдите в систему.</p>
+	{% endif %}
+	{% load custom_tags %}
+
+	<h1>Активные сессии:</h1>
+	{% show_sessions %}
+	<!-- Отображаем изображение -->
+	<img src="data:image/png;base64,{{ image|base64_image }}" alt="Generated Image">
+</body>
+
+</html>

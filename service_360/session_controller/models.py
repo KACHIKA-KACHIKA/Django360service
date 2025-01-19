@@ -1,7 +1,8 @@
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth.models import User
 from simple_history.models import HistoricalRecords
-
+# from .managers import ActiveSessionseManager
 ROLES = [('employee', 'Employee'), ('team_lead', 'Team Lead'),
          ('hr_manager', 'HR Manager')]
 
@@ -14,6 +15,9 @@ class Profile(models.Model):
     role = models.CharField(max_length=50, choices=ROLES)
     hire_date = models.DateField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
+
+    def get_absolute_url(self):
+        return reverse('profile_detail', kwargs={'pk': self.id})
 
     def __str__(self):
         return f"{self.user.username} - {self.role}"
